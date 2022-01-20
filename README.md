@@ -7,5 +7,5 @@ Command to run the serve markdown local (if clone this project):
 npm run start
 ```
 
-[Dart](src/Dart.md)
-[Flutter](src/Flutter.md)
+- [Dart](src/Dart.md)
+- [Flutter](src/Flutter.md)
