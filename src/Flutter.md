@@ -13,3 +13,5 @@ lib/ -> Source code of app.
 - widgets/        -> Reusable UI Widgets
 - main.dart
 - routes.dart
+
+## Testing Apps
