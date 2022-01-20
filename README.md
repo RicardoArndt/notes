@@ -1,4 +1,4 @@
-# Notes project
+# Notes
 
 I created the repository with the objective save my notes in markdown language.
 
