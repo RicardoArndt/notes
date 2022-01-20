@@ -1,0 +1,14 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "markserv src"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "markserv": "^1.17.4"
+  }
+}
