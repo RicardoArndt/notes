@@ -15,3 +15,26 @@ lib/ -> Source code of app.
 - routes.dart
 
 ## Testing Apps
+
+## Forms
+
+To create new text form field use Padding first, ex
+
+```flutter
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+  child: TextFormField(
+    decoration: const InputDecoration(
+      border: OutlineInputBorder(),
+      labelText: 'Description',
+      hintText: 'Enter a description'
+    ),
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter some description';
+      }
+      return null;
+    },
+  ),
+)
+```
