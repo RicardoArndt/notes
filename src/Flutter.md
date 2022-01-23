@@ -30,25 +30,26 @@ dev_dependencies:
     test: version_here
 ```
 
-Pattern to create files for unit test
+**Pattern to create files for unit test**
 
-name_*test.dart* in folder /test/unit
+- name_*test.dart* in folder /test/unit
 
-The test always involved by function *void main() {}*
+**Command to run unit test**
+- *flutter test test/name_test.dart* -> Command to run unit test to specific file.
+    - options
+        - *--coverage <dir>*
 
-Composite structure of file test
+**The test always involved by function *void main() {}***
 
-*void test() {}* -> This function used to describe the function which it will be tested
+**Composite structure of file test**
 
-*void expect(a, b)*
+- *void test() {}* -> This function used to describe the function which it will be tested
 
-*void group()* -> Generally, a class has more than a single method to be tested. Using the group() function.
+- *void expect(a, b)*
 
-*flutter test test/name_test.dart* -> Command to run unit test to specific file.
-- options
-*--coverage <dir>*
+- *void group()* -> Generally, a class has more than a single method to be tested. Using the group() function.
 
-*void allOf()* -> Match a multiple cases. Ex:
+- *void allOf()* -> Match a multiple cases. Ex:
 
 ```test
 expect('A short string', allOf([
