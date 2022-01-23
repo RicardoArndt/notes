@@ -19,8 +19,10 @@ lib/ -> Source code of app.
 ### Types of testing flutter apps
 
 - Unit test
-- Widget test -> Kind of tests made on Flutter widgets. They check if a widget is present in the widget tree or how many time does it apperar.
-- Integration test -> Kind of tests in which different parts of the code ate combined and tested together as a group.
+- Widget test
+    - Kind of tests made on Flutter widgets. They check if a widget is present in the widget tree or how many time does it apperar.
+- Integration test
+    - Kind of tests in which different parts of the code ate combined and tested together as a group.
 
 ### Unit
 
@@ -35,7 +37,7 @@ dev_dependencies:
 - name_*test.dart* in folder /test/unit
 
 **Command to run unit test**
-- *flutter test test/name_test.dart* -> Command to run unit test to specific file.
+- *flutter test test/name_test.dart* 
     - options
         - *--coverage <dir>*
 
@@ -43,13 +45,16 @@ dev_dependencies:
 
 **Composite structure of file test**
 
-- *void test() {}* -> This function used to describe the function which it will be tested
+- *void test() {}* 
+    - This function used to describe the function which it will be tested
 
 - *void expect(a, b)*
 
-- *void group()* -> Generally, a class has more than a single method to be tested. Using the group() function.
+- *void group()*
+    - Generally, a class has more than a single method to be tested. Using the group() function.
 
-- *void allOf()* -> Match a multiple cases. Ex:
+- *void allOf()* 
+    - Match a multiple cases. Ex:
 
 ```test
 expect('A short string', allOf([
