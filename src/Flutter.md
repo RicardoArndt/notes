@@ -32,14 +32,161 @@ dev_dependencies:
 
 Pattern to create files for unit test
 
-name_**test.dart** in folder /test/unit
+name_*test.dart* in folder /test/unit
 
-The test always involved by function **void main() {}**
+The test always involved by function *void main() {}*
 
 Composite structure of file test
 
-**void test() {}** -> This function used to describe the function which it will be tested
-... will be continued
+*void test() {}* -> This function used to describe the function which it will be tested
+
+*void expect(a, b)*
+
+*void group()* -> Generally, a class has more than a single method to be tested. Using the group() function.
+
+*flutter test test/name_test.dart* -> Command to run unit test to specific file.
+- options
+*--coverage <dir>*
+
+*void allOf()* -> Match a multiple cases. Ex:
+
+```test
+expect('A short string', allOf([
+    contains('rt'),
+    startsWith('A '),
+    endsWith('.')
+]))
+```
+
+**Handling errors**
+
+```test
+expect(() => Function(), throwsA(isA<ExceptionClass>()));
+```
+
+When is common exception you can use the shortcut, equivalent:
+```test
+expect(() => { ... }, throwsException);
+```
+
+**Testing asynchronous code**
+
+```test
+void main() {
+    test('The unit test async', () async {
+        final value = await Future<int>.value(25);
+
+        expect(value, equals(25));
+    });
+}
+```
+
+**Mocking dependencies**
+
+The official package to create mocks is named mockito.
+```yaml
+dev_dependencies:
+    test: version_here
+    mockito: version_here
+```
+
+```test
+class HTTPMock extends Mock implements http.Client {}
+
+void main() {
+    test('Returns JSON in case of success', () async {
+        final url = 'url';
+        final mock = HTTPMock();
+        final fakeJson = '[{}]';
+
+        when(mock.get(url).whenComplete(() {
+            return http.Response(fakeJson, 200);
+        }));
+
+        expect(
+            await todo.getJson(mock),
+            fakeJson
+        );
+    });
+}
+```
+
+**Unit test blocs**
+State management libraries require to be unit tested like any other logic implemented in the app and thus flutter_bloc is no exception. bloc_test is the package used to verify the bahavior of your blocs and cubits couldn't be easier.
+Example:
+
+It just expects an event of type increase or decrease and returns an integer.
+```test
+void main() {
+    blocTest(
+        'Emits [1] when increment is added',
+        build: () => CounterBloc(),
+        act: (bloc) => bloc.add(CounterEvent.increment),
+        expect: [1],
+    );
+}
+```
+
+With act you can send events to the bloc being created in *build* and *expect()* is a list of expected emitted states. Of course there's the possibility to send multiple events and look for multiple results.
+```test
+void main() {
+    blocTest(
+        'Emits [1, 2, 1] when 2 increments and 1 decrement are added',
+        build: () => CounterBloc(),
+        act: (bloc) => bloc
+            ..add(CounterEvent.increment)
+            ..add(CounterEvent.increment)
+            ..add(CounterEvent.decrement),
+        expect: [1, 2, 1],
+    );
+}
+```
+
+Setting the optional skip parameters allows you to ignore a certain number of states. By default skip: 0 is set and the initial state is excluded from the expect list. Does your bloc await somewhere and thus you need to wait some time?
+
+```test
+void main() {
+    blocTest(
+        'Emits [1, 2, 1] when 2 increments and 1 decrement are added',
+        build: () => CounterBloc(),
+        wait: const Duration(seconds: 2),
+        act: (bloc) => bloc
+            ..add(CounterEvent.increment)
+            ..add(CounterEvent.increment)
+            ..add(CounterEvent.decrement),
+        expect: [1, 2, 1],
+    );
+}
+```
+In this way, when act sends an event to the bloc, the emitted state is returned after the given time span (which is 2 seconds in the example). This is very useful when you need to wait, for example, when debouncing events.
+
+```test
+void main() {
+    blocTest(
+        'Description',
+        build: () => CounterBloc(),
+        wait: const Duration(seconds: 2),
+        act: (bloc) => bloc.add(Something())
+        expect: [0],
+        errors: [
+            isA<Exception>(),
+        ]
+    );
+}
+```
+The errors parameter is used to catch exceptions, generally together with isA<T> to exactly match the type. Of course, bloc tests can be grouped like any other unit test.
+
+```test
+void main() {
+    group('CounterBloc', () {
+        blocTest(...);
+
+        blocTest(...);
+        
+        blocTest(...);
+    });
+}
+```
 
 //TODO
 ### Widget
