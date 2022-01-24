@@ -319,6 +319,8 @@ The first case just makes sure that the latest state equals 2 while the second o
 
 ### Integration
 
+Package flutter_driver
+
 This kind of test gathers together both the UI and the business logic so that you can test the app as a whole. With integration tests you're able to verify how the visual components and the code behave together; the app runs on a device (or simulator) and it's told to do certain things automatically, such as pressing on buttons.
 
 For integration test you can create new folder named test_driver located at the root of your project (same level as lib folder).
@@ -344,10 +346,12 @@ void main() {
 
         late final FlutterDriver driver;
 
+        // Is called before any test starts
         setUpAll(() async {
             driver = await FlutterDriver.connect();
         });
 
+        // Is called before any test ends
         tearDownAll(() async {
             driver.close();
         });
@@ -367,8 +371,35 @@ void main() {
 
             expect(readText, "0");
         });
+
+        //Example enters a text in input field
+        test('Enters a text', () {
+            final textField = find.byValueKey('itsName');
+
+            await driver.setTextEntryEmulation(enabled: true);
+            await driver.tap(textField);
+            await driver.enterText('Flutter is...');
+            await driver.enterText('Awesome!');
+        });
     });
 }
+```
+
+**Utils methods**
+
+- enterText:
+    - Enters the given text in an input field like if the user were tapping on the keyboard;
+- getText:
+    - Reads the text from a Text widget;
+- scroll:
+    - The driver simulates a finger scrolling on a list. It's possible to also set the direction and the duration.
+- screenshot:
+    - Takes a screenshot of the page and stores it in a PNG file.
+
+**Command**
+
+```bash
+flutter driver --target=test_driver/app.dart
 ```
 
 ## Forms
