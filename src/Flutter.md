@@ -56,7 +56,7 @@ dev_dependencies:
 - *void allOf()* 
     - Match a multiple cases. Ex:
 
-```test
+```dart
 expect('A short string', allOf([
     contains('rt'),
     startsWith('A '),
@@ -66,18 +66,18 @@ expect('A short string', allOf([
 
 **Handling errors**
 
-```test
+```dart
 expect(() => Function(), throwsA(isA<ExceptionClass>()));
 ```
 
 When is common exception you can use the shortcut, equivalent:
-```test
+```dart
 expect(() => { ... }, throwsException);
 ```
 
 **Testing asynchronous code**
 
-```test
+```dart
 void main() {
     test('The unit test async', () async {
         final value = await Future<int>.value(25);
@@ -96,7 +96,7 @@ dev_dependencies:
     mockito: version_here
 ```
 
-```test
+```dart
 class HTTPMock extends Mock implements http.Client {}
 
 void main() {
@@ -122,7 +122,7 @@ State management libraries require to be unit tested like any other logic implem
 Example:
 
 It just expects an event of type increase or decrease and returns an integer.
-```test
+```dart
 void main() {
     blocTest(
         'Emits [1] when increment is added',
@@ -134,7 +134,7 @@ void main() {
 ```
 
 With act you can send events to the bloc being created in *build* and *expect()* is a list of expected emitted states. Of course there's the possibility to send multiple events and look for multiple results.
-```test
+```dart
 void main() {
     blocTest(
         'Emits [1, 2, 1] when 2 increments and 1 decrement are added',
@@ -150,7 +150,7 @@ void main() {
 
 Setting the optional skip parameters allows you to ignore a certain number of states. By default skip: 0 is set and the initial state is excluded from the expect list. Does your bloc await somewhere and thus you need to wait some time?
 
-```test
+```dart
 void main() {
     blocTest(
         'Emits [1, 2, 1] when 2 increments and 1 decrement are added',
@@ -166,7 +166,7 @@ void main() {
 ```
 In this way, when act sends an event to the bloc, the emitted state is returned after the given time span (which is 2 seconds in the example). This is very useful when you need to wait, for example, when debouncing events.
 
-```test
+```dart
 void main() {
     blocTest(
         'Description',
@@ -182,7 +182,7 @@ void main() {
 ```
 The errors parameter is used to catch exceptions, generally together with isA<T> to exactly match the type. Of course, bloc tests can be grouped like any other unit test.
 
-```test
+```dart
 void main() {
     group('CounterBloc', () {
         blocTest(...);
@@ -195,7 +195,35 @@ void main() {
 ```
 
 ### Widget
-//TODO
+
+Testing Flutter widgets requires the same process you've seen in unit testing with the addition of some new techniques brought by the built-in *flutter_test* package.
+
+Widget tests are meant to check whether one or more widgets have been properly put in the widget tree.
+
+```dart
+void main() {
+    testWidgets('Testing if Myself has name and age', (WidgetTester tester) async {
+        await tester.pumpWidget(MySelf('Ricardo', '25'));
+
+        final CommonFinders name = find.text('Ricardo');
+        final CommonFinders age = find.text('25');
+
+        expect(name, findsWigets);
+        expect(age, findsOneWidget);
+    });
+}
+```
+
+**Finders**
+- findsNothing:
+    - asserts that the finder has found no widgets in the tree;
+- findsOneWidget:
+    - asserts that the finder has found exactly one widget in the tree;
+- findsWidgets:
+    - asserts that the finder has found one or more widgets in the tree;
+- findsNWiget:
+    - asserts that the finder has found exactly N widget in the tree; 
+    - where N is a value defined by you.
 
 ### Integration
 //TODO
