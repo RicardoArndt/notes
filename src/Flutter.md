@@ -402,6 +402,37 @@ void main() {
 flutter driver --target=test_driver/app.dart
 ```
 
+## General
+
+StatefullWidget vs StatelessWidget
+
+- StatelessWidget:
+    - Use this kind of widget when you need to create a piece of UI that is not going to change over the time. It's a standalone block that doesn't depend on external events or sources, it just relies on its constructor and the internal data.
+- StatefullWidget:
+    - Use this kind of widget when you need to create a piece of UI that is going to change over the time. In this case the UI is going to dynamically change due to external events such as the received of an HTTP request or the callback triggered by a button tap.
+
+Example of StatefullWidget:
+```dart
+class Counter extends StatefulWidget {
+    // Dont forget const constructor
+    const Counter();
+
+    @override
+    _CounterState createState() => _CounterState();
+}
+
+// Undescore names is private member
+class _CounterState extends State<Counter> {
+    int _counter = 0;
+
+    @override
+    Widget build(BuildContext context) {
+        return Column(
+            ...
+        );
+    }
+```
+
 ## Forms
 
 Creating form text field with padding, example:
