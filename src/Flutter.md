@@ -404,7 +404,7 @@ flutter driver --target=test_driver/app.dart
 
 ## Forms
 
-To create new text form field use Padding first, ex
+Creating form text field with padding, example:
 
 ```dart
 Padding(
