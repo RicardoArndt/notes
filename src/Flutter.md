@@ -214,7 +214,7 @@ void main() {
 }
 ```
 
-**Finders**
+**Asserts**
 - findsNothing:
     - asserts that the finder has found no widgets in the tree;
 - findsOneWidget:
@@ -224,6 +224,98 @@ void main() {
 - findsNWiget:
     - asserts that the finder has found exactly N widget in the tree; 
     - where N is a value defined by you.
+
+**Finders**
+- find.text(...):
+    - you'll often have the need to look for the presence of a Text widget and this method does exactly that;
+- find.byWidget(...):
+    - it's useful when you want to look for a specific widget in the tree making sure it appears on the screen a certain number of time.
+    - **Example**:
+
+```dart
+final target = Icon(Icons.error);
+
+await tester.pumpWidget(
+    Center(
+        child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: target,
+        )
+    )
+);
+
+final finder = find.byWidget(target);
+
+expect(finder, findsOneWidget);
+```
+
+- find.byType(...): 
+    - looks for widgets of a particular type. It can be used in the following way:
+
+```dart
+expect(find.byType(IconButton), findsWigets);
+```
+
+Suppose you had to test a StatefulWidget which has a series of animations inside. Other than making sure certain widgets are appearing to the UI, you could also want to test its performances:
+
+```dart
+await tester.pumpWidget(MyWidget());
+await tester.pump(Duration(milliseconds: 100));
+```
+
+**Testing blocs and providers**
+It might happen that a particular part of the widget tree you want to test depends on one or more providers of any kind. There's nothing special to do when it comes to testing as just need to normally wrap the widget in the provider you need.
+
+```dart
+await tester.pumpWidget(
+    Provider<Something>(
+        child: MyWidget(),
+    ),
+);
+```
+
+Multiple providers
+```dart
+await tester.pumpWidget(
+    MultiProvider(
+        providers: [...],
+        child: MyWidget(),
+    ),
+);
+```
+
+*Mock bloc*
+
+```dart
+class MockCounterBloc extends MockBloc<int> implements CounterBloc {}
+
+void main() {
+    final counterBloc = MockCounterBloc();
+
+    whenListen(counterBloc, Stream.fromIterable([0, 1, 2]));
+
+    await tester.pumpWidget(
+        BlocProvider<CounterBloc>.value(
+            value: counterBloc,
+            child: MyWidget(),
+        )
+    );
+
+    expect(counterBloc.state, equals(2));
+}
+```
+
+Basically before using pumpWidget() you need to create a "fake bloc"using a mock, similarly to what you'd do with a fake HTTP client. In this way there;s the possibility to send a series of states we decide just by using whenListen(). It's also possible making sure that states are emitted in a certain order:
+
+```dart
+// Making sure the state is correct
+expect(counterBloc.state, equals(2));
+
+// Making sure the stream emits certain values
+await expectLater(counterBloc, emitsInOrder(<int>[1, 2]));
+```
+
+The first case just makes sure that the latest state equals 2 while the second one ensures that the entire "emission flow" is correct.
 
 ### Integration
 //TODO
