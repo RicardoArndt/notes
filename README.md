@@ -7,5 +7,10 @@ Command to run the serve markdown local (if clone this project):
 npm run start
 ```
 
+# Frameworks and Languages
 - [Dart](src/Dart.md)
 - [Flutter](src/Flutter.md)
+- [React](src/React.md)
+
+# Skills
+- [How to be a best Programmer](src/HowToBeABestProgrammer.md)
