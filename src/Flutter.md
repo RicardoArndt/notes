@@ -318,7 +318,58 @@ await expectLater(counterBloc, emitsInOrder(<int>[1, 2]));
 The first case just makes sure that the latest state equals 2 while the second one ensures that the entire "emission flow" is correct.
 
 ### Integration
-//TODO
+
+This kind of test gathers together both the UI and the business logic so that you can test the app as a whole. With integration tests you're able to verify how the visual components and the code behave together; the app runs on a device (or simulator) and it's told to do certain things automatically, such as pressing on buttons.
+
+For integration test you can create new folder named test_driver located at the root of your project (same level as lib folder).
+
+Create file at test_driver folder named app.dart
+
+```dart
+void main() {
+    enableFlutterDriverExtension();
+
+    runApp(CounterApp());
+}
+```
+
+Implements the test, file app_test.dart
+
+```dart
+void main() {
+    group('Counter App test', () {
+        final counterText = find.byValueKey('counter');
+        final incrementButton = find.byValueKey('increment');
+        final decrementButton = find.byValueKey('decrement');
+
+        late final FlutterDriver driver;
+
+        setUpAll(() async {
+            driver = await FlutterDriver.connect();
+        });
+
+        tearDownAll(() async {
+            driver.close();
+        });
+
+        test('Counter increment', () async {
+            await driver.tap(incrementButton);
+
+            var readText = await driver.getText(counterText);
+
+            expect(readText, "1");
+        });
+
+        test('Counter decrement', () async {
+            await driver.tap(decrementButton);
+
+            var readText = await driver.getText(counterText);
+
+            expect(readText, "0");
+        });
+    });
+}
+```
 
 ## Forms
 
