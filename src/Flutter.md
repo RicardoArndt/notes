@@ -406,7 +406,7 @@ flutter driver --target=test_driver/app.dart
 
 To create new text form field use Padding first, ex
 
-```flutter
+```dart
 Padding(
   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
   child: TextFormField(
