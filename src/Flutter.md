@@ -402,16 +402,15 @@ void main() {
 flutter driver --target=test_driver/app.dart
 ```
 
-## General
-
-StatefullWidget vs StatelessWidget
+## StatefullWidget vs StatelessWidget
 
 - StatelessWidget:
     - Use this kind of widget when you need to create a piece of UI that is not going to change over the time. It's a standalone block that doesn't depend on external events or sources, it just relies on its constructor and the internal data.
 - StatefullWidget:
     - Use this kind of widget when you need to create a piece of UI that is going to change over the time. In this case the UI is going to dynamically change due to external events such as the received of an HTTP request or the callback triggered by a button tap.
 
-Example of StatefullWidget:
+## StatefullWidget
+
 ```dart
 class Counter extends StatefulWidget {
     // Dont forget const constructor
@@ -431,6 +430,30 @@ class _CounterState extends State<Counter> {
             ...
         );
     }
+```
+
+- Counter is the widget (what's inserted on the tree) while _CounterState is the state. 
+- The state survives to rebuilds but its **build()** method doesn't.
+
+**Props**
+
+- If you used the constructor of a StatefulWidget to set some data, the associated State<T> class can get a reference to them by simply using the widget getter. Again, try to use const as much as possible.
+
+```dart
+class WidgetDemo extends StatefulWidget {
+    final int id;
+    const WidgetDemo(this.id);
+
+    @override
+    _WidgetDemoState createState() => _WidgetDemoState();
+}
+
+class _WidgetDemoState extends State<WidgetDemo> {
+    @override
+    Widget build(BuildContext context) {
+        return Text('The given id is ${widget.id}');
+    }
+}
 ```
 
 ## Forms
