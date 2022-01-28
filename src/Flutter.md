@@ -478,3 +478,68 @@ Padding(
   ),
 )
 ```
+
+## Firebase
+
+**Installation**
+
+- Install packages pub
+
+```yaml
+firebase_core: "1.11.0"
+cloud_firestore: "3.1.6"
+```
+
+- Create firebase account
+- Configure android/build.gradle
+    - Add 
+        ```gradle
+        dependencies {
+            ...
+            classpath 'com.google.gms:google-services:4.3.10'
+        }
+        ```
+- Configure android/app/build.gradle
+    - Add 
+        ```gradle
+        apply plugin: 'com.google.gms.google-services'
+        ```
+- Add file google-services.json to android/app folder
+- If error minSdkVersion
+    - Change android/app/build.gradle
+        - minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
+    - Add local.properties
+        - flutter.minSdkVersion=19
+
+**Using Firestore**
+
+```dart
+import "package:cloud_firestore/cloud_firestore.dart";
+
+class TodoDAO {
+    Future<List<Todo>> getTodos() async {
+        QuerySnapshot snapshot = await Firestore.instance.collection("todos").getDocuments();
+
+        AllTodos todos = AllTodos.fromSnapshot(snapshot);
+
+        return todos;
+    }
+}
+```
+
+*Snapshot*
+- This is the data you wanted in the moment that you asked for it.
+
+*QuerySnapshot*
+- Is a class that represents some data from the database at any given moment.
+
+*Instance*
+- Is a static getter on the firestore package that represents the database.
+
+*Collectioon*
+- Is a method that retrieves a collection from your database.
+- "todos" is the path, and "todos/$id" is specific todo.
+
+## Dependency Injection
+
+*Follow Link*: https://medium.com/zipper-studios/dependency-injection-in-flutter-using-inject-dart-package-20d6a5918a5
