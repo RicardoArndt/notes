@@ -542,4 +542,19 @@ class TodoDAO {
 
 ## Dependency Injection
 
-*Follow Link*: https://medium.com/zipper-studios/dependency-injection-in-flutter-using-inject-dart-package-20d6a5918a5
+*Simple package*: injector.dart
+
+## Publishing the app
+
+**Android**
+- Create developer account on google $25 (once)
+- Adding a launcher icon
+- Create an upload keystore
+- Reference the keystore from the app
+- Configure signing in gradle
+- Run *flutter build appbundle*
+- Send apk to the console mode https://play.google.com/
+- Create version for internal test (Adding emails to list)
+
+For more details visit the page: https://docs.flutter.dev/deployment/android
+
