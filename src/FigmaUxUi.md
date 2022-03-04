@@ -72,3 +72,10 @@ O esqueleto determina a forma visual da tela, a apresentação de todos os eleme
 
 1 - Superfície
 É a última camada, mas não menos importante. Por se tratar da camada que está acima de tudo, ela é a soma total dos trabalhos (lembra que falamos na aula o iceberg começamos sempre DE BAIXO PARA CIMA). Esse é o momento onde determinamos como será o produto e qual será o layout, como será a tipografia, as palheta de cores e etc.​​
+
+# Perguntas para contruir um produto
+
+1 - Por que?
+2 - Quem?
+3 - Quando - Onde?
+4 - Como?
