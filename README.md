@@ -8,6 +8,7 @@ npm run start
 ```
 
 # Frameworks and Languages
+- [RxJS](src/RxJS.md)
 - [Dart](src/Dart.md)
 - [Flutter](src/Flutter.md)
 - [React](src/React.md)
