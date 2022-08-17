@@ -6,4 +6,4 @@ Example:
 
 < Project Name >
 
-<< Description of the my client >>
+<< Description of my client >>
