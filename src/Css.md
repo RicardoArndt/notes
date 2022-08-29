@@ -42,3 +42,6 @@ Modifier: a different version of a block or an element.
     - ends with
   - \*
     - contains
+
+# Tricks
+- Variables in calc function, use this calc(100% - #{$variable})
