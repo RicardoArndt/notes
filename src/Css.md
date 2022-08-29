@@ -33,3 +33,12 @@ Modifier: a different version of a block or an element.
   - Always use % for image dimensions, together with the max-width property
 - Media queries
   - To change CSS styles on certain viewport widths (called breakpoints)
+
+# Selectors
+- [class^="col-"]
+  - ^ 
+    - starts with
+  - $
+    - ends with
+  - *
+    - contains
