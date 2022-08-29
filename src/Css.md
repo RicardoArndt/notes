@@ -36,9 +36,9 @@ Modifier: a different version of a block or an element.
 
 # Selectors
 - [class^="col-"]
-  - ^ 
+  - \^ 
     - starts with
-  - $
+  - \$
     - ends with
-  - *
+  - \*
     - contains
