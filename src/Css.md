@@ -44,4 +44,5 @@ Modifier: a different version of a block or an element.
     - contains
 
 # Tricks
-- Variables in calc function, use this calc(100% - #{$variable})
+- ``calc(100% - #{$variable})``
+  - Variables in calc function, use this
